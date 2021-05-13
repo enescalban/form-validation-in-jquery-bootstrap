@@ -1,3 +1,17 @@
+<?php
+require_once 'config/class.crud.php';
+$db = new crud();
+
+
+?>
+<?php
+
+if(isset($_POST['submit'])){
+
+}
+
+
+?>
 <!doctype html>
 <html lang="en">
 
@@ -48,13 +62,25 @@
                 <input type="checkbox" value="remember-me"> Beni Hatırla
             </label>
         </div>
-        <button id="btn" type="button" class="btn btn-lg  btn-block" type="submit">Giriş</button>
+        <button name="buton" id="btn" type="button" class="btn btn-lg  btn-block" type="submit">Giriş</button>
     </form>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+    $("#btn").click(function(){
+     
+alert();
+
+    });
+    </script>
+    <script>
     $(document).ready(function() {
-        $("#btn").addClass("btn-danger disabled");
+
+
+        $("#btn").addClass("btn-danger");
+        $("#btn").prop('disabled', true);
+
+        
         $("#email").keyup(function() {
             if (validateEmail()) {
                 $("#email").css("border", "2px solid green");
@@ -77,10 +103,11 @@
 
     function buttonState(){
         if(validateEmail() && validatePassword() ){
-            $("#btn").removeClass("btn-danger disabled");
+            $("#btn").prop('disabled', false);
+            $("#btn").removeClass("btn-danger");
             $("#btn").addClass("btn-success");
         } else {
-            $("#btn").addClass("btn-danger disabled");
+            $("#btn").prop('disabled', true);
         }
     }
 
