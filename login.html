@@ -23,63 +23,85 @@
 
 <body class="text-center">
 
-    <form class="form-signin">
+    <form id="login-form" class="form-signin">
 
 
         <img class="mb-4" src="https://i.pinimg.com/originals/74/ab/48/74ab48240e34df5e05a398e997a42b0e.png" alt=""
             width="72" height="72">
 
 
-        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+        <b>
+            <h1 class="h3 mb-3 font-weight-normal">Lütfen Giriş Yapınız</h1>
+        </b>
+        <hr>
 
-        <label for="inputEmail" class="sr-only">Email address</label>
-
-        <input autocomplete="off" type="email" id="inputEmail" class="form-control" placeholder="Email address" required
-            autofocus>
+        <input autocomplete="off" type="email" id="email" name="email" class="form-control"
+            placeholder="E-posta Adresiniz veya Kullanıcı Adınız" required autofocus>
 
         <br>
 
-        <label for="inputPassword" class="sr-only">Password</label>
-
-        <input autocomplete="off" type="password" id="inputPassword" class="form-control" placeholder="Password"
+        <input autocomplete="off" type="password" id="pass" name="pass" class="form-control" placeholder="Şifreniz"
             required>
 
         <div class="checkbox mb-3">
             <label>
-                <input type="checkbox" value="remember-me"> Remember me
+                <input type="checkbox" value="remember-me"> Beni Hatırla
             </label>
         </div>
-        <button id="button" type="button" class="btn btn-lg btn-outline-success btn-block" type="submit">Sign in</button>
+        <button id="btn" type="button" class="btn btn-lg  btn-block" type="submit">Giriş</button>
     </form>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
     $(document).ready(function() {
-        $("#button").click(function() {
-            $inputEmail = $("#inputEmail").val();
-            $inputPassword = $("#inputPassword").val();
-
-            if ($inputEmail == "") {
-                swal({
-                    title: "Warning",
-                    text: "Fill in all fields.",
-                    icon: "info",
-                    button: "OK",
-                });
-            } else if ($inputPassword == "") {
-                swal({
-                    title: "Warning",
-                    text: "Fill in all fields.",
-                    icon: "info",
-                    button: "OK",
-                });
+        $("#btn").addClass("btn-danger disabled");
+        $("#email").keyup(function() {
+            if (validateEmail()) {
+                $("#email").css("border", "2px solid green");
+            } else {
+                $("#email").css("border", "2px solid red");
             }
-
+            buttonState();
         });
 
-        // DARK MODE
+        $("#pass").keyup(function() {
+            if (validatePassword()) {
+                $("#pass").css("border", "2px solid green");
+            } else {
+                $("#pass").css("border", "2px solid red");
+            }
+            buttonState();
+        });
 
+    });
 
+    function buttonState(){
+        if(validateEmail() && validatePassword() ){
+            $("#btn").removeClass("btn-danger disabled");
+            $("#btn").addClass("btn-success");
+        } else {
+            $("#btn").addClass("btn-danger disabled");
+        }
+    }
+
+    function validateEmail() {
+        var email = $("#email").val();
+        var reg = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
+        if (reg.test(email)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function validatePassword() {
+        var pass = $("#pass").val();
+        if (pass.length > 8) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     </script>
 
 </body>
